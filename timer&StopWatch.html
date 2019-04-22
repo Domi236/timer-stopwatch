@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="assets/css/style.css" media="all"> -->
+  <!-- <script src="assets/js/gameCollection.js"></script>
+  <script src="assets/js/sublineMenuBar.js"></script> -->
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        color: white;
+        background: black;
+        border-color: black;
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .content__wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 48%;
+        height: 100%;
+    }
+    .currentOutput {
+        position: absolute;
+        position: relative;
+        font-size: 350px;
+        vertical-align: center;
+        padding-left: 2.5%;
+    }
+    .controls {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .headline {
+        position: sticky;
+        font-size: 100px;
+        text-align: center;
+    }
+    /*timer*/
+    #setTimeOutput {
+        display: none;
+    }
+    #youtubeAudio {
+        visibility: hidden;
+    }
+    .timerEvent {
+        flex-grow: 0.2;
+        height: 40px;
+        margin: 0 5px;
+        background:orangered;
+    }
+    #inputNumber {
+        width: 160px;
+        height: 36px;
+        font-size: 25px;
+        padding-left: 5px;
+        background: white;
+        color: orangered;
+    }
+    #timerMessage {
+        width: 100%;
+        height: 80px;
+        vertical-align: middle;
+        font-size: 60px;
+        padding: 50px 5% 0;
+    }
+    /*stopWatch*/
+    #outputStopwatch {
+        width: 100%;
+        height: auto;
+    }
+    .stopWatchBtn {
+        width: 40%;
+        height: 40px;
+        background:orangered;
+    }
+    .headline__stopWatch {
+        margin-top: 130px;
+    }
+    /*world time*/
+    #worldTime {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+</style>
+<body class="content">
+    <section class="timer content__wrapper">
+        <p id="outputTimer"  class="currentOutput"></p>
+        <div class="controls">
+            <p id="setTimeOutput"></p>
+            <input class="timerEvent" type="number" id="inputNumber" placeholder="choose your time"/>
+            <button class="timerEvent" id="timeSet" onclick="timeSet()">Set Time</button>
+            <button class="timerEvent" id="startStop" onclick="startStop()">Start</button>
+            <button class="timerEvent" id="reset" onclick="reset()">Reset</button>
+            <button class="timerEvent" id="startStopAlarm" onclick="startStopAlarm()">Stop Alarm</button>
+        </div>
+        <p id="timerMessage"></p>
+        <h2 class="headline headline__timer">Timer</h2>
+
+        <audio id="youtubeAudio">
+            <source src="assets/cool.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    </section>
+
+
+    <section class="Stopwatch content__wrapper">
+        <p id="outputStopwatch" class="currentOutput"></p>
+        <div class="controls">
+            <button class="stopWatchBtn" id="startStopStW" onclick="startStopStW()">Start</button>
+            <button class="stopWatchBtn" id="resetStW" onclick="resetStW()">Reset</button>
+        </div>
+        <h2 class="headline headline__stopWatch">Stopwatch</h2>
+    </section>  
+
+    
+    <p id="worldTime"></p>
+    
+<script>
+///////// timer ////////////
+    var time = 0;
+    var running = 0;
+    var input = 0;
+    var ringing = false;
+    var audio = document.getElementById('youtubeAudio');
+
+//timerSet
+function timeSet() {
+        input = document.getElementById('inputNumber').value;
+        document.getElementById('setTimeOutput').innerHTML = input;
+    }
+
+//start stop
+    function startStop() {
+        if(running == 0) {
+            running = 1;
+            increment();
+            document.getElementById('startStop').innerHTML = 'Stop';
+            console.log(running + "jo");
+        } else {
+            running = 0;
+            document.getElementById('startStop').innerHTML = 'Resume';
+            console.log(running);
+        }
+    }
+//reset
+    function reset() {
+        running = 0;
+        time = 0;
+        document.getElementById('startStop').innerHTML = 'Start';
+        document.getElementById('outputTimer').innerHTML = '00:00';
+    }
+
+//counter
+    function increment() {  //increment = Zuwachs
+
+        if(running == 1) {
+            setTimeout(function() {
+                time ++;
+                var mins = Math.floor(time/60); //minutes
+                var secs = Math.floor(time) % 60;    //seconds
+                // var tenths = time % 100;            //miliSeconds
+
+                timeSet();
+                if (input == mins) {
+                    ringing = true;
+                    document.getElementById('timerMessage').innerHTML = 'Your are running out of time!'
+                    audio.play();
+                    startStop();
+                }
+
+                if(mins < 10) {
+                    mins = '0' + mins;
+
+                }
+                if(secs < 10) {
+                    secs = '0' + secs;
+                }
+
+                document.getElementById('outputTimer').innerHTML = mins + ':' + secs;
+                increment();
+            }, 1000); 
+        };
+    };
+
+
+//gives an output about the world time
+    var myVar = setInterval(myTimer ,1000);
+
+    function myTimer() {
+        var date = new Date();
+        document.getElementById("worldTime").innerHTML = date.toLocaleTimeString();
+    }
+
+
+//stop alarm
+    function startStopAlarm() {
+        if (ringing == true) {
+            audio.pause();
+            ringing =  false;
+            document.getElementById('startStopAlarm').innerHTML = 'Resume Alarm';
+        } else {
+            audio.play();
+            ringing =  true;
+            document.getElementById('startStopAlarm').innerHTML = 'Stop Alarm';
+        }
+    }
+
+
+</script>
+<script>
+////////stopWatch//////////
+
+    var timeStW = 0;
+    var runningStW = 0;
+
+    function startStopStW() {
+        if(runningStW == 0) {
+            runningStW = 1;
+            incrementStW();
+            document.getElementById('startStopStW').innerHTML = 'Stop';
+        } else {
+            runningStW = 0;
+            document.getElementById('startStopStW').innerHTML = 'Resume';
+        }
+    }
+
+    function resetStW() {
+        runningStW = 0;
+        timeStW = 0;
+        document.getElementById('startStopStW').innerHTML = 'Start';
+        document.getElementById('outputStopwatch').innerHTML = '00:00';
+    }
+
+    function incrementStW() {  //increment = Zuwachs
+        if(runningStW == 1) {
+            setTimeout(function() {
+                timeStW ++;
+                var minsStW = Math.floor(timeStW/60);
+                var secsStW = Math.floor(timeStW) % 60;
+
+                if(minsStW < 10) {
+                    minsStW = '0' + minsStW;
+                }
+                if(secsStW < 10) {
+                    secsStW = '0' + secsStW;
+                }
+
+                document.getElementById('outputStopwatch').innerHTML = minsStW + ':' + secsStW;
+                incrementStW();
+            }, 1000);
+        };
+    };
+
+
+
+    
+</script>
+<!-- Todos: in git repo hauen und pushen
+    stylen, die classen ändern auf Bem
+    auf richtige sekunden anzahl anpassen, 
+    da es um ca 1mlsekunde unterschiedlich ist
+
+    for(
+        zeit = aktuell
+        if ( milisekunden = größer geworden)
+            sachen ausgeben (sekunden min unso)
+        ) -->
+
+    <!-- buttons beim drücken farbwechsel -->
+
+    <!-- > you should can choose your ringtone -->
+</body>
+</html>

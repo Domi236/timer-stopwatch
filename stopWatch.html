@@ -9,7 +9,7 @@
 
 </head>
 <style>
-    #output {
+    #outputStopwatch {
         width: 100px;
         height: 20px;
         background: #ccc;
@@ -18,76 +18,60 @@
 </style>
 <body>
 
-<p id="output"></p>
-<div id="controls">
-    <button id="startStop" onclick="startStop()">Start</button>
-    <button id="reset" onclick="reset()">Reset</button>
+<p id="outputStopwatch"></p>
+<div class="controls">
+    <button id="startStopStW" onclick="startStopStW()">Start</button>
+    <button id="resetStW" onclick="resetStW()">Reset</button>
 </div>
 
-<!-- <p id="time"></p> -->
-
 <script>
-// document.getElementById('startStop').onclick = startStop();
-// document.getElementById('reset').onclick = reset();
 
-    var time = 0;
-    var running = 0;
+    var timeStW = 0;
+    var runningStW = 0;
 
-    function startStop() {
-        if(running == 0) {
-            running = 1;
-            increment();
-            document.getElementById('startStop').innerHTML = 'Stop';
+    function startStopStW() {
+        if(runningStW == 0) {
+            runningStW = 1;
+            incrementStW();
+            document.getElementById('startStopStW').innerHTML = 'Stop';
         } else {
-            running = 0;
-            document.getElementById('startStop').innerHTML = 'Resume';
+            runningStW = 0;
+            document.getElementById('startStopStW').innerHTML = 'Resume';
         }
     }
 
-    function reset() {
-        running = 0;
-        time = 0;
-        document.getElementById('startStop').innerHTML = 'Start';
-        document.getElementById('output').innerHTML = '00:00:00';
+    function resetStW() {
+        runningStW = 0;
+        timeStW = 0;
+        document.getElementById('startStopStW').innerHTML = 'Start';
+        document.getElementById('outputStopwatch').innerHTML = '00:00';
     }
 
-    function increment() {  //increment = Zuwachs
-        if(running == 1) {
+    function incrementStW() {  //increment = Zuwachs
+        if(runningStW == 1) {
             setTimeout(function() {
-                time ++;
-                var mins = Math.floor(time/10/60);
-                var secs = Math.floor(time/10) % 60;
-                var tenths = time % 10;
+                timeStW ++;
+                var minsStW = Math.floor(timeStW/60);
+                var secsStW = Math.floor(timeStW) % 60;
 
-                if(mins < 10) {
-                    mins = '0' + mins;
+                if(minsStW < 10) {
+                    minsStW = '0' + minsStW;
                 }
-                if(secs < 10) {
-                    secs = '0' + secs;
+                if(secsStW < 10) {
+                    secsStW = '0' + secsStW;
                 }
 
-                document.getElementById('output').innerHTML = mins + ':' + secs + ':' + '0' + tenths;
-                increment();
-            }, 100);
+                document.getElementById('outputStopwatch').innerHTML = minsStW + ':' + secsStW;
+                incrementStW();
+            }, 1000);
         };
     };
 
 
 
 
-// var myVar = setInterval(myTimer ,1000);
-// function myTimer() {
-//   var d = new Date();
-//   document.getElementById("time").innerHTML = d.toLocaleTimeString();
-// }
 
 
-
-
-
-
-//Todos: 
-// -timer  https://www.youtube.com/watch?v=kDnfrlK2CLg
 </script>
 
 
