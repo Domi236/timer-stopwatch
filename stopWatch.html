@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="assets/css/style.css" media="all"> -->
+  <!-- <script src="assets/js/gameCollection.js"></script>
+  <script src="assets/js/sublineMenuBar.js"></script> -->
+
+</head>
+<style>
+    #output {
+        width: 100px;
+        height: 20px;
+        background: #ccc;
+        border: 1px solid #999;
+    }
+</style>
+<body>
+
+<p id="output"></p>
+<div id="controls">
+    <button id="startStop" onclick="startStop()">Start</button>
+    <button id="reset" onclick="reset()">Reset</button>
+</div>
+
+<!-- <p id="time"></p> -->
+
+<script>
+// document.getElementById('startStop').onclick = startStop();
+// document.getElementById('reset').onclick = reset();
+
+    var time = 0;
+    var running = 0;
+
+    function startStop() {
+        if(running == 0) {
+            running = 1;
+            increment();
+            document.getElementById('startStop').innerHTML = 'Stop';
+        } else {
+            running = 0;
+            document.getElementById('startStop').innerHTML = 'Resume';
+        }
+    }
+
+    function reset() {
+        running = 0;
+        time = 0;
+        document.getElementById('startStop').innerHTML = 'Start';
+        document.getElementById('output').innerHTML = '00:00:00';
+    }
+
+    function increment() {  //increment = Zuwachs
+        if(running == 1) {
+            setTimeout(function() {
+                time ++;
+                var mins = Math.floor(time/10/60);
+                var secs = Math.floor(time/10) % 60;
+                var tenths = time % 10;
+
+                if(mins < 10) {
+                    mins = '0' + mins;
+                }
+                if(secs < 10) {
+                    secs = '0' + secs;
+                }
+
+                document.getElementById('output').innerHTML = mins + ':' + secs + ':' + '0' + tenths;
+                increment();
+            }, 100);
+        };
+    };
+
+
+
+
+// var myVar = setInterval(myTimer ,1000);
+// function myTimer() {
+//   var d = new Date();
+//   document.getElementById("time").innerHTML = d.toLocaleTimeString();
+// }
+
+
+
+
+
+
+//Todos: 
+// -timer  https://www.youtube.com/watch?v=kDnfrlK2CLg
+</script>
+
+
+
+</body>
+</html>
