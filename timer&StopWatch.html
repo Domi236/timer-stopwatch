@@ -148,11 +148,9 @@ function timeSet() {
             running = 1;
             increment();
             document.getElementById('startStop').innerHTML = 'Stop';
-            console.log(running + "jo");
         } else {
             running = 0;
             document.getElementById('startStop').innerHTML = 'Resume';
-            console.log(running);
         }
     }
 //reset
@@ -171,7 +169,7 @@ function timeSet() {
                 time ++;
                 var mins = Math.floor(time/60); //minutes
                 var secs = Math.floor(time) % 60;    //seconds
-                // var tenths = time % 100;            //miliSeconds
+
 
                 timeSet();
                 if (input == mins) {
@@ -268,19 +266,7 @@ function timeSet() {
 
     
 </script>
-<!-- Todos: in git repo hauen und pushen
-    stylen, die classen ändern auf Bem
-    auf richtige sekunden anzahl anpassen, 
-    da es um ca 1mlsekunde unterschiedlich ist
-
-    for(
-        zeit = aktuell
-        if ( milisekunden = größer geworden)
-            sachen ausgeben (sekunden min unso)
-        ) -->
-
-    <!-- buttons beim drücken farbwechsel -->
-
-    <!-- > you should can choose your ringtone -->
+<!-- Todos: die classen ändern auf Bem umschreiben
+            you should can choose your ringtone -->
 </body>
 </html>
