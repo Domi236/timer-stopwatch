@@ -28,7 +28,6 @@
         height: 100%;
     }
     .currentOutput {
-        position: absolute;
         position: relative;
         font-size: 350px;
         vertical-align: center;
@@ -193,7 +192,6 @@ function timeSet() {
         };
     };
 
-
 //gives an output about the world time
     var myVar = setInterval(myTimer ,1000);
 
@@ -201,7 +199,6 @@ function timeSet() {
         var date = new Date();
         document.getElementById("worldTime").innerHTML = date.toLocaleTimeString();
     }
-
 
 //stop alarm
     function startStopAlarm() {
