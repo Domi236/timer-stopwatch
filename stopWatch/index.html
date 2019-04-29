@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="assets/css/style.css" media="all"> -->
+ 
+  <!--<script src="assets/js/sublineMenuBar.js"></script> -->
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        color: white;
+        background: black;
+        border-color: black;
+    }
+    #content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .content__wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 48%;
+        height: 100%;
+    }
+    .currentOutput {
+        position: relative;
+        font-size: 350px;
+        vertical-align: center;
+        padding-left: 2.5%;
+    }
+    .controls {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .headline {
+        position: sticky;
+        font-size: 100px;
+        text-align: center;
+    }
+    /*stopWatch*/
+    #outputStopwatch {
+        width: 100%;
+        height: auto;
+    }
+    .stopWatchBtn {
+        width: 40%;
+        height: 40px;
+        background:orangered;
+    }
+    .headline__stopWatch {
+        margin-top: 130px;
+    }
+
+
+</style>
+<body id="content">
+
+    <section class="Stopwatch content__wrapper">
+        <p id="outputStopwatch" class="currentOutput"></p>
+        <div class="controls">
+            <button class="stopWatchBtn" id="startStop">Start</button>
+            <button class="stopWatchBtn" id="reset">Reset</button>
+        </div>
+        <h2 class="headline headline__stopWatch">Stopwatch</h2>
+    </section>  
+
+
+    <script src="../assets/js/stopWatch.js"></script>
+
+<script>
+
+/*example code*/
+var stopWatch = new StopWatch({
+    start: 0,
+    elTime: document.getElementById('outputStopwatch'),
+    elStartStop: document.getElementById('startStop'),
+    elResetBtn: document.getElementById('reset')
+});
+
+
+// var stopWatch = new StopWatch({
+//     start: 0,
+//     elTime: '.das-ist-mein-stop-button-selector',
+//     elStartStop: '.das-ist-mein-start-stop-button-selector',
+//     elResetBtn: '.das-ist-mein-start-stop-button-selector',
+// });
+
+
+</script>
+
+</body>
+</html>

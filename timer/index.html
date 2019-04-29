@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<style>
+     * {
+        margin: 0;
+        padding: 0;
+        color: white;
+        background: black;
+        border-color: black;
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .content__wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 48%;
+        height: 100%;
+    }
+    .currentOutput {
+        position: relative;
+        font-size: 350px;
+        vertical-align: center;
+        padding-left: 2.5%;
+    }
+    .controls {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+    }
+    .headline {
+        position: sticky;
+        font-size: 100px;
+        text-align: center;
+    }
+    /*timer*/
+    #setTimeOutput {
+        display: none;
+    }
+    #youtubeAudio {
+        visibility: hidden;
+    }
+    .timerEvent {
+        flex-grow: 0.2;
+        height: 40px;
+        margin: 0 5px;
+        background:orangered;
+    }
+    #inputNumber {
+        width: 160px;
+        height: 36px;
+        font-size: 25px;
+        padding-left: 5px;
+        background: white;
+        color: orangered;
+    }
+    #timerMessage {
+        width: 100%;
+        height: 80px;
+        vertical-align: middle;
+        font-size: 60px;
+        padding: 50px 5% 0;
+    }
+</style>
+<body id="content">
+
+    <section class="timer content__wrapper">
+        <p id="outputTimer"  class="currentOutput"></p>
+        <div class="controls">
+            <!-- <input class="timerEvent" type="number" id="inputNumber" placeholder="choose your time"/> -->
+            <button class="timerEvent" id="startStop">Start</button>
+            <button class="timerEvent" id="reset">Reset</button>
+        </div>
+        <p id="timerMessage"></p>
+        <h2 class="headline headline__timer">Timer</h2>
+
+        <audio id="youtubeAudio">
+            <source src="../assets/cool.mp3" type="audio/mpeg">
+            Your browser does not support the audio tag.
+        </audio>
+    </section>
+
+
+    <script src="../assets/js/timer.js"></script>
+<script>
+
+/*example code*/
+var timer = new Timer({
+    elTime: document.getElementById('outputTimer'),
+    elStartStop: document.getElementById('startStop'),
+
+    // optional features
+    startMin: 12,
+    startSecs: 0,
+    elResetBtn: document.getElementById('reset'),
+    elAudio: document.getElementById('youtubeAudio'),
+    elTimerMessage: document.getElementById('timerMessage'),
+    elMessage: 'you are running out of time!'
+});
+
+
+// var timer = new Timer({
+//     elTime: '.das-ist-mein-stop-button-selector',
+//     elSetTime: '.das-ist-mein-set-time-selector', 
+//     elStartStop: '.das-ist-mein-start-stop-button-selector',
+//     elResetBtn: '.das-ist-mein-start-stop-button-selector',
+    // elAudio: '.das-ist-mein-audio-selector'
+// });
+
+
+</script>
+
+</body>
+</html>
