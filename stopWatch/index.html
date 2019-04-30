@@ -78,15 +78,23 @@
 
 /*example code*/
 var stopWatch = new StopWatch({
-    start: 0,
     elTime: document.getElementById('outputStopwatch'),
     elStartStop: document.getElementById('startStop'),
+
+    // optional feature
     elResetBtn: document.getElementById('reset')
+});
+
+var stopWatch = new StopWatch({
+    elTime: '.das-ist-mein-stop-button-selector',
+    elStartStop: '.das-ist-mein-start-stop-button-selector',
+
+    // optional feature
+    elResetBtn: '.das-ist-mein-reset-button-selector'
 });
 
 
 // var stopWatch = new StopWatch({
-//     start: 0,
 //     elTime: '.das-ist-mein-stop-button-selector',
 //     elStartStop: '.das-ist-mein-start-stop-button-selector',
 //     elResetBtn: '.das-ist-mein-start-stop-button-selector',

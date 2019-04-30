@@ -3,19 +3,23 @@
 class StopWatch {
 
     constructor(config) {
-        this.time = config.start;
         this.outputTime = config.elTime;
         this.btnStartStop = config.elStartStop;
         this.btnReset = config.elResetBtn;
 
-        this.time = typeof time !== 'undefined' ? time : 0;
+        this.outputTime = typeof config.elTime !== 'undefined' ? config.elTime: false;
+        this.btnStartStop = typeof config.elStartStop !== 'undefined' ? config.elStartStop: false;
+        this.btnReset = typeof config.elResetBtn !== 'undefined' ? config.elResetBtn: false;
 
+        this.time = -1;
         this.running = 0;
-        this.mins = 0;
-        this.secs = 0;
 
-        this.btnStartStop.addEventListener('click', () => this.startStop());
-        this.btnReset.addEventListener('click', () => this.reset());
+        if (this.btnStartStop !== false) {
+            this.btnStartStop.addEventListener('click', () => this.startStop());
+        }
+        if (this.btnReset !== false) {
+            this.btnReset.addEventListener('click', () => this.reset());
+        }
     }
     startStop() {
         if(this.running == 0) {
