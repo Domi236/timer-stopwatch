@@ -12,46 +12,51 @@ class Timer {
         this.message = config.elMessage;
 
         this.input = typeof config.startMin !== 'undefined' ? config.startMin: 10;
+
         this.secsInput = typeof config.startSecs !== 'undefined' ? config.startSecs: 0;
         
-        
-        // this.btnReset = typeof config.elResetBtn !== 'undefined' ? config.elResetBtn: false;
+        this.outputTime = typeof config.elTime !== 'undefined' ? config.elTime: false;
+        this.btnStartStop = typeof config.elStartStop !== 'undefined' ? config.elStartStop: false;
+        this.btnReset = typeof config.elResetBtn !== 'undefined' ? config.elResetBtn: false;
         this.audio = typeof config.elAudio !== 'undefined' ? config.elAudio: false;
         this.timerMessage = typeof config.elTimerMessage !== 'undefined' ? config.elTimerMessage: false;
         this.message = typeof config.elMessage == '' || config.elMessage == 'undefined' ? config.elMessage: 'you are running out of time!';
 
-        this.running = 0;
+        this.running = false;
         this.ringing = false;
         this.mins = this.input;
         this.minsInt = 0;
         this.secs = this.secsInput;
         this.secsInt = 0;
 
-        this.btnStartStop.addEventListener('click', () => this.startStop());
-        this.btnReset.addEventListener('click', () => this.reset());
+        if (this.btnStartStop !== false) {
+            this.btnStartStop.addEventListener('click', () => this.startStop());
+        }
+
+        if (this.btnReset !== false) {
+            this.btnReset.addEventListener('click', () => this.reset());
+        }
     }
 
     startStop() {
-        if(this.running == 0) {
-            this.running = 1;
-            this.start();
-            if (this.secs == 0) {
-                this.input - 1;
-                this.secs = 60; 
+        if (this.btnStartStop !== false) {
+            if(this.running == false) {
+                this.running = true;
+                this.start();
+                this.increment();
+                this.btnStartStop.innerHTML = 'Stop';
+            } else {
+                this.running = 0;
+                this.btnStartStop.innerHTML = 'Resume';
             }
-            this.increment();
-            this.btnStartStop.innerHTML = 'Stop';
-        } else {
-            this.running = 0;
-            this.btnStartStop.innerHTML = 'Resume';
-        }
-        if (this.ringing == true) {
-            if (this.audio !== false) {
-                this.audio.pause();
-                this.ringing =  false;
+            if (this.ringing == true) {
+                if (this.audio !== false) {
+                    this.audio.pause();
+                    this.ringing =  false;
+                }
+                
             }
-            
-        }
+        } 
     }
 
     start() {
@@ -74,19 +79,21 @@ class Timer {
     }
 
     reset() {
-        this.running = 0;
-        this.mins = this.input;
-        this.secs = this.secsInput + 1;
-        this.btnStartStop.innerHTML = 'Start';
-        this.start();
-        if (this.ringing == true) {
-            this.audio.pause();
-            this.ringing =  false;
+        if (this.btnReset !== false) {
+            this.running = false;
+            this.mins = this.input;
+            this.secs = this.secsInput + 1;
+            this.btnStartStop.innerHTML = 'Start';
+            this.start();
+            if (this.ringing == true) {
+                this.audio.pause();
+                this.ringing =  false;
+            }
         }
     }
 
     increment() { 
-        if(this.running == 1) {
+        if(this.running == true) {
             setTimeout(() => {
                 this.secsInt = parseInt(this.secs);
                 this.secs --; 
@@ -99,6 +106,8 @@ class Timer {
 
                 console.log(this.mins);
                 console.log(this.outputTime.textContent);
+
+                
 
                 if (this.outputTime.textContent == '00:01') {
                     this.ringing = true;
