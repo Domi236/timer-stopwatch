@@ -10,7 +10,8 @@ class Timer {
         this.audio = config.elAudio;
         this.timerMessage = config.elTimerMessage;
         this.message = config.elMessage;
-
+        this.arrowMin = config.elClockArrowMin;
+        // this.arrowSecs = config.elClockArrowSecs;
         this.input = typeof config.startMin !== 'undefined' ? config.startMin: 10;
 
         this.secsInput = typeof config.startSecs !== 'undefined' ? config.startSecs: 0;
@@ -27,7 +28,9 @@ class Timer {
         this.mins = this.input;
         this.minsInt = 0;
         this.secs = this.secsInput;
-        this.secsInt = 0;
+        // this.secsInt = 0;
+        this.degMins = (this.input * 6)-90;
+        // this.degSecs = (this.secsInput * 6)-90;
 
         if (this.btnStartStop !== false) {
             this.btnStartStop.addEventListener('click', () => this.startStop());
@@ -54,12 +57,16 @@ class Timer {
                     this.audio.pause();
                     this.ringing =  false;
                 }
-                
             }
         } 
     }
 
     start() {
+        this.degMins = (this.input * 6)-90;
+        // this.degSecs = (this.secsInput * 6)-90;
+        this.arrowMin.style.transform = 'rotate(' + this.degMins + 'deg)';
+        // this.arrowSecs.style.transform = 'rotate(' + this.degSecs + 'deg)';
+
         if (this.secs < 10) {
             if (this.mins < 10) {
                 this.outputTime.innerHTML = '0' + this.mins + ':0' + this.secs;
@@ -97,17 +104,22 @@ class Timer {
             setTimeout(() => {
                 this.secsInt = parseInt(this.secs);
                 this.secs --; 
-
+                
+                // console.log(this.degMins);
+                // console.log(this.degSecs);
+                console.log(this.degMins);
                 if (this.secs == '-1') {
                     this.minsInt = parseInt(this.mins);
                     this.mins = this.mins - 1;
-                    this.secs = 59;
+                    this.secs = 9;
+
+                    this.degMins = this.degMins - 6;
+                    this.arrowMin.style.transform = 'rotate(' + this.degMins + 'deg)';
+                    console.log(this.degMins);
+                    console.log(this.arrowMin);
+                    // this.increment();
+                    // return this.degMins;
                 }
-
-                console.log(this.mins);
-                console.log(this.outputTime.textContent);
-
-                
 
                 if (this.outputTime.textContent == '00:01') {
                     this.ringing = true;
@@ -127,3 +139,4 @@ class Timer {
         };
     };
 }
+

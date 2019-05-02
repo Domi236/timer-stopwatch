@@ -44,6 +44,9 @@
         font-size: 100px;
         text-align: center;
     }
+    button {
+        border-color:black;
+    }
     /*clock*/
     .timer-svg__wrapper {
         position: absolute;
@@ -53,15 +56,11 @@
         left: 5%;
         margin-top: 5%;
     }
-    button {
-        border-color:black;
-    }
-
     .clock-times {
         position: absolute;
         font-size: 60px;
         color: orangered;
-        left: 47%;
+        left: 48%;
         top: 2%;
         background: white;
     }
@@ -82,7 +81,10 @@
         top: 36%;
         left: 37%;
         width: 68%;
+        transform-origin: 19.5% 66%;
+        transform: rotate(-90deg);
     }
+
     /*timer*/
     #youtubeAudio {
         visibility: hidden;
@@ -110,10 +112,10 @@
         <svg class="timer-clock" fill="white" viewBox="0 0 180 180">
             <circle cx="90" cy="90" r="90"/>
         </svg>
-        <svg class="clock-arrows clock-arrows--long" viewBox="0 0 100 30">
+        <!-- <svg class="clock-arrows" id="clock-arrow--big" viewBox="0 0 100 30">
             <path stroke="orangered" fill="orangered" stroke-width="1" d="M20 20 H85 L70 15 L75 20 H85 L70 25 L75 20" />
-        </svg>
-        <svg class="clock-arrows clock-arrow--small" viewBox="0 0 100 30">
+        </svg> -->
+        <svg class="clock-arrows" id="clock-arrow--small" viewBox="0 0 100 30">
             <path stroke="orangered" fill="orangered" stroke-width="1" d="M20 20 H55 L50 15 L65 20 H55 L50 25 L65 20" />
         </svg>
         <svg class="clock-arrow-circle clock-arrows" viewBox="0 0 100 30">
@@ -141,19 +143,25 @@
     <script src="../assets/js/timer.js"></script>
 <script>
 
+
+
 /*example code*/
 var timer = new Timer({
     elTime: document.getElementById('outputTimer'),
     elStartStop: document.getElementById('startStop'),
 
     // optional features
-    startMin: 10,
-    startSecs: 30,
+    startMin: 8,
+    startSecs: 3,
     elResetBtn: document.getElementById('reset'),
     elAudio: document.getElementById('youtubeAudio'),
     elTimerMessage: document.getElementById('timerMessage'),
-    elMessage: 'you are running out of time!'
+    elMessage: 'you are running out of time!',
+    elClockArrowMin: document.getElementById('clock-arrow--small'),
+    // elClockArrowSecs: document.getElementById('clock-arrow--big')
 });
+
+
 
 // var timer = new Timer({
 //     elTime: '.das-ist-mein-output-timer-selector',
