@@ -23,6 +23,7 @@ class Timer {
         this.timerMessage = typeof config.elTimerMessage !== 'undefined' ? config.elTimerMessage: false;
         this.message = typeof config.elMessage == '' || config.elMessage == 'undefined' ? config.elMessage: 'you are running out of time!';
 
+        this.startArrows = false;
         this.running = false;
         this.ringing = false;
         this.mins = this.input;
@@ -43,6 +44,7 @@ class Timer {
 
     startStop() {
         if (this.btnStartStop !== false) {
+            // if(this.startArrows)
             if(this.running == false) {
                 this.running = true;
                 this.start();
@@ -62,11 +64,6 @@ class Timer {
     }
 
     start() {
-        this.degMins = (this.input * 6)-90;
-        // this.degSecs = (this.secsInput * 6)-90;
-        this.arrowMin.style.transform = 'rotate(' + this.degMins + 'deg)';
-        // this.arrowSecs.style.transform = 'rotate(' + this.degSecs + 'deg)';
-
         if (this.secs < 10) {
             if (this.mins < 10) {
                 this.outputTime.innerHTML = '0' + this.mins + ':0' + this.secs;
@@ -87,6 +84,10 @@ class Timer {
 
     reset() {
         if (this.btnReset !== false) {
+            this.degMins = (this.input * 6)-90;
+            // this.degSecs = (this.secsInput * 6)-90;
+            this.arrowMin.style.transform = 'rotate(' + this.degMins + 'deg)';
+            // this.arrowSecs.style.transform = 'rotate(' + this.degSecs + 'deg)';
             this.running = false;
             this.mins = this.input;
             this.secs = this.secsInput + 1;
@@ -98,6 +99,10 @@ class Timer {
             }
         }
     }
+
+    // startClockArrow() {
+
+    // }
 
     increment() { 
         if(this.running == true) {
