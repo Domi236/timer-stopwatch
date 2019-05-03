@@ -1,3 +1,20 @@
+class Clock {
+    constructor(setting) {
+        this.clockContainer = setting.elClockContainer;
+        this.clockTimes = setting.elClockTimes;
+        this.clockId = setting.elClockId;
+        this.arrowClass = setting.elArrowClass;
+        this.arrowMinId = setting.elArrowMinId;
+        this.arrowSecsId = setting.elArrowSecsId;
+
+        window.onload = this.generateClock();
+    }
+    
+    generateClock() {
+        this.clockContainer.innerHTML = "<h4 class='" + this.clockTimes + "'>0</h4><h4 class='" + this.clockTimes + "'>15</h4><h4 class='" + this.clockTimes + "'>30</h4><h4 class='" + this.clockTimes + "'>45</h4><svg id='" + this.clockId + "' fill='white' viewBox='0 0 180 180'><circle cx='90' cy='90' r='90'/></svg><svg class='" + this.arrowClass + "'id='" + this.arrowSecsId + "' viewBox='0 0 100 30'><path stroke='orangered' fill='orangered' stroke-width='1' d='M20 20 H85 L70 15 L75 20 H85 L70 25 L75 20' /></svg><svg class='" + this.arrowClass + "'id='" + this.arrowMinId + "' viewBox='0 0 100 30'><path stroke='orangered' fill='orangered' stroke-width='1' d='M20 20 H55 L50 15 L65 20 H55 L50 25 L65 20'/><circle stroke='orangered' fill='orangered' stroke-width='1' cx='20' cy='20' r='3' /><circle stroke='black' fill='black' stroke-width='2' cx='20' cy='20' r='1' /></svg>"
+    }
+}
+
 
 class Timer {
     constructor(config) {
@@ -12,6 +29,7 @@ class Timer {
         this.audio = config.elAudio;
         this.timerMessage = config.elTimerMessage;
         this.message = config.elMessage;
+        
         this.arrowMin = config.elClockArrowMin;
         this.arrowSecs = config.elClockArrowSecs;
 
@@ -55,8 +73,12 @@ class Timer {
         if (this.btnStartStop !== false) {
             this.timeset();
             if (this.outputTime.textContent == '00:00') {
+                console.log('essem');
                 if (this.timerMessage !== false) {
                     this.timerMessage.innerHTML = '';
+                }
+                if (this.secsInput == 0 && this.input == 0) {
+                    this.input = 15;
                 }
                 this.mins = this.input;
                 this.secs = this.secsInput;
@@ -150,7 +172,6 @@ class Timer {
                 this.secsInt = parseInt(this.secs);
                 this.secs --; 
 
-                // console.log(this.arrowSecs);
                 if (this.arrowSecs !== undefined) {
                     this.degSecs = this.degSecs - 6;
                     this.arrowSecs.style.transform = 'rotate(' + this.degSecs + 'deg)';
@@ -171,7 +192,7 @@ class Timer {
                     this.btnStartStop.innerHTML = 'Start';
                     this.ringing = true;
         
-                    if (this.arrowSecs !== false) {
+                    if (this.arrowSecs !== undefined) {
                         this.arrowSecs.style.transform = 'rotate(-90deg)';
                     }
                     if (this.timerMessage !== false) {
@@ -190,4 +211,3 @@ class Timer {
         };
     };
 }
-
