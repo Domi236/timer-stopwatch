@@ -44,8 +44,8 @@
         font-size: 100px;
         text-align: center;
     }
-    button {
-        border-color:black;
+    button, input {
+        border-color: black;
     }
     /*clock*/
     .timer-svg__wrapper {
@@ -93,7 +93,23 @@
         flex-grow: 0.2;
         height: 40px;
         margin: 0 5px;
-        background:orangered;
+        background: orangered;
+    }
+    .input-container {
+        width: 200px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .timerEvent-input {
+        width: 60px;
+        color: black;
+        font-size: 30px;
+        text-align: center;
+        border-radius: 5px;
+    }
+    .info-headline {
+        font-size: 30px;
     }
     #timerMessage {
         width: 100%;
@@ -112,22 +128,28 @@
         <svg class="timer-clock" fill="white" viewBox="0 0 180 180">
             <circle cx="90" cy="90" r="90"/>
         </svg>
-        <!-- <svg class="clock-arrows" id="clock-arrow--big" viewBox="0 0 100 30">
+        <svg class="clock-arrows" id="clock-arrow--big" viewBox="0 0 100 30">
             <path stroke="orangered" fill="orangered" stroke-width="1" d="M20 20 H85 L70 15 L75 20 H85 L70 25 L75 20" />
-        </svg> -->
+        </svg>
         <svg class="clock-arrows" id="clock-arrow--small" viewBox="0 0 100 30">
             <path stroke="orangered" fill="orangered" stroke-width="1" d="M20 20 H55 L50 15 L65 20 H55 L50 25 L65 20" />
         </svg>
         <svg class="clock-arrow-circle clock-arrows" viewBox="0 0 100 30">
             <circle stroke="orangered" fill="orangered" stroke-width="1" cx="20" cy="20" r="3" />
             <circle stroke="black" fill="black" stroke-width="2" cx="20" cy="20" r="1" />
-            </svg>
+        </svg>
 
     </section>
 
     <section class="content__wrapper">
         <p id="outputTimer"  class="currentOutput">00:00</p>
         <div class="controls">
+            <div class="input-container">
+                <h3 class="info-headline">Min:</h3>
+                <input class="timerEvent-input" type="number" min="0" id="inputMin"/>
+                <h3 class="info-headline">Secs:</h3>
+                <input class="timerEvent-input" type="number" min="0" id="inputSecs"/>
+            </div>
             <button class="timerEvent" id="startStop">Start</button>
             <button class="timerEvent" id="reset">Reset</button>
         </div>
@@ -151,14 +173,18 @@ var timer = new Timer({
     elStartStop: document.getElementById('startStop'),
 
     // optional features
-    startMin: 8,
-    startSecs: 3,
+    startMin: 15,
+    startSecs: 0,
+    elInputMin: document.getElementById('inputMin'),
+    elInputsecs: document.getElementById('inputSecs'),
     elResetBtn: document.getElementById('reset'),
     elAudio: document.getElementById('youtubeAudio'),
     elTimerMessage: document.getElementById('timerMessage'),
     elMessage: 'you are running out of time!',
+
+
     elClockArrowMin: document.getElementById('clock-arrow--small'),
-    // elClockArrowSecs: document.getElementById('clock-arrow--big')
+    elClockArrowSecs: document.getElementById('clock-arrow--big')
 });
 
 
@@ -172,8 +198,8 @@ var timer = new Timer({
 //     startSecs: 'choose on which second(number) the timer should begin',
 //     elResetBtn: '.das-ist-mein-reset-button-selector',
 //     elAudio: '.das-ist-mein-audio-selector',
-//     elTimerMessage: '.das-ist-mein-message-output-selector',
-//     elMessage: 'write your message down here'
+    // elTimerMessage: '.das-ist-mein-message-output-selector',
+    // elMessage: 'write your message down here'
 // });
     
 
