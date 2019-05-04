@@ -10,19 +10,22 @@
         margin: 0;
         padding: 0;
         color: white;
-        background: black;
-        border-color: black;
+        box-sizing: border-box;
+    }
+    body {
+        background-color: black;
     }
     .content {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
     }
     .content__wrapper {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
+        position: absolute;
         height: 100%;
+        flex-basis: 0;
+        flex-grow: 0.5;
+        left: 50%;
+        top: 0;
     }
     .currentOutput {
         position: relative;
@@ -41,6 +44,47 @@
         font-size: 100px;
         text-align: center;
     }
+    button, input {
+        border-color: black;
+    }
+    /*clock*/
+    #timer-svg__wrapper {
+        position: absolute;
+        flex-basis: 0;
+        width: 720px;
+        height: 720px;
+        left: 5%;
+        margin-top: 5%;
+    }
+    .clock-times {
+        position: absolute;
+        font-size: 60px;
+        color: orangered;
+        left: 48%;
+        top: 2%;
+        background: white;
+    }
+    .clock-times:nth-child(2) {
+        left: 87%;
+        top: 45%;
+    }
+    .clock-times:nth-child(3) {
+        left: 46%;
+        top: 88%;
+    }
+    .clock-times:nth-child(4) {
+        left: 5%;
+        top: 45%;
+    }
+    .clock-arrows {
+        position: absolute;
+        top: 36%;
+        left: 37%;
+        width: 68%;
+        transform-origin: 19.5% 66%;
+        transform: rotate(-90deg);
+    }
+
     /*timer*/
     #youtubeAudio {
         visibility: hidden;
@@ -49,26 +93,51 @@
         flex-grow: 0.2;
         height: 40px;
         margin: 0 5px;
-        background:orangered;
+        background: orangered;
+    }
+    .input-container {
+        width: 200px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .timerEvent-input {
+        width: 60px;
+        color: black;
+        font-size: 30px;
+        text-align: center;
+        border-radius: 5px;
+    }
+    .info-headline {
+        font-size: 30px;
     }
     #timerMessage {
         width: 100%;
         height: 80px;
         vertical-align: middle;
         font-size: 60px;
-        padding: 50px 5% 0;
+        padding: 10px 5% 0;
     }
 </style>
 <body id="content">
+    <section id="timer-svg__wrapper">
 
-    <section class="timer content__wrapper">
-        <p id="outputTimer"  class="currentOutput"></p>
+    </section>
+
+    <section class="content__wrapper">
+        <p id="outputTimer"  class="currentOutput">00:00</p>
         <div class="controls">
+            <div class="input-container">
+                <h3 class="info-headline">Min:</h3>
+                <input class="timerEvent-input" type="number" min="0" id="inputMin"/>
+                <h3 class="info-headline">Secs:</h3>
+                <input class="timerEvent-input" type="number" min="0" id="inputSecs"/>
+            </div>
             <button class="timerEvent" id="startStop">Start</button>
             <button class="timerEvent" id="reset">Reset</button>
         </div>
         <p id="timerMessage"></p>
-        <h2 class="headline headline__timer">Timer</h2>
+        <h2 class="headline">Timer</h2>
 
         <audio id="youtubeAudio">
             <source src="../assets/cool.mp3" type="audio/mpeg">
@@ -76,9 +145,18 @@
         </audio>
     </section>
 
-
     <script src="../assets/js/timer.js"></script>
 <script>
+
+/*example code*/
+var clock = new Clock({
+    elClockContainer: document.getElementById('timer-svg__wrapper'),
+    elClockTimes : 'clock-times',
+    elClockId:'timer-clock',
+    elArrowClass: 'clock-arrows',
+    elArrowMinId:'clock-arrow--small',
+    elArrowSecsId:'clock-arrow--big',
+});
 
 /*example code*/
 var timer = new Timer({
@@ -86,13 +164,21 @@ var timer = new Timer({
     elStartStop: document.getElementById('startStop'),
 
     // optional features
-    // startMin: 2,
-    // startSecs: 44,
-    // elResetBtn: document.getElementById('reset'),
-    // elAudio: document.getElementById('youtubeAudio'),
-    // elTimerMessage: document.getElementById('timerMessage'),
-    // elMessage: 'you are running out of time!'
+    startMin: 15,
+    startSecs: 0,
+    elInputMin: document.getElementById('inputMin'),
+    elInputsecs: document.getElementById('inputSecs'),
+    elResetBtn: document.getElementById('reset'),
+    elAudio: document.getElementById('youtubeAudio'),
+    elTimerMessage: document.getElementById('timerMessage'),
+    elMessage: 'you are running out of time!',
+
+    elClockArrowMin: document.getElementById('clock-arrow--small'),
+    elClockArrowSecs: document.getElementById('clock-arrow--big')
 });
+
+
+
 
 // var timer = new Timer({
 //     elTime: '.das-ist-mein-output-timer-selector',
@@ -103,8 +189,8 @@ var timer = new Timer({
 //     startSecs: 'choose on which second(number) the timer should begin',
 //     elResetBtn: '.das-ist-mein-reset-button-selector',
 //     elAudio: '.das-ist-mein-audio-selector',
-//     elTimerMessage: '.das-ist-mein-message-output-selector',
-//     elMessage: 'write your message down here'
+    // elTimerMessage: '.das-ist-mein-message-output-selector',
+    // elMessage: 'write your message down here'
 // });
     
 
