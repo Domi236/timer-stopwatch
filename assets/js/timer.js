@@ -73,7 +73,6 @@ class Timer {
         if (this.btnStartStop !== false) {
             this.timeset();
             if (this.outputTime.textContent == '00:00') {
-                console.log('essem');
                 if (this.timerMessage !== false) {
                     this.timerMessage.innerHTML = '';
                 }
@@ -176,13 +175,11 @@ class Timer {
                     this.degSecs = this.degSecs - 6;
                     this.arrowSecs.style.transform = 'rotate(' + this.degSecs + 'deg)';
                 }
-               
                 if (this.secs == '-1') {
                     this.minsInt = parseInt(this.mins);
                     this.mins = this.mins - 1;
                     this.secs = 59;
-
-                    if (this.arrowMins !== undefined) {
+                    if (this.arrowMin !== undefined) {
                         this.degMins = this.degMins - 6;
                         this.arrowMin.style.transform = 'rotate(' + this.degMins + 'deg)';
                     }
